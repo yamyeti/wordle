@@ -3,7 +3,6 @@ import random
 
 class Wordle:
     wordle_words = None
-    tries = None
     word_of_the_day = None
 
     def __init__(self, file_name):
