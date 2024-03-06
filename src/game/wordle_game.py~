@@ -1,0 +1,8 @@
+from wordle import Wordle
+
+class WordleGame:
+    game = None
+    player = None
+
+    def __init__(self, file_name):
+        self.game = Wordle(file_name)
