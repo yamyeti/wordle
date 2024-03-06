@@ -11,7 +11,7 @@ class Wordle:
 
     '''
     Setter that assigns a random wordle word as word of the day
-    
+
     @return: None
     '''
     def set_word_of_the_day(self):
@@ -28,10 +28,10 @@ class Wordle:
 
     '''
     Reads file of wordle words into list
-    
+
     @param file_name: name of file to read
     @return: list of words in file
-    '''    
+    '''
     def read_file(self, file_name):
         w = []
         f = open(file_name, 'r')
@@ -42,7 +42,7 @@ class Wordle:
 
     '''
     Getter for list of wordle words
-    
+
     @return: list of wordle words
     '''
     def get_words(self):
@@ -60,10 +60,10 @@ class Wordle:
                 if guess in self.wordle_words:
                     return True
         return False
-    
+
     '''
     Gives response to the guessed word like in Wordle
-    
+
     @param guess: guess (str), assumes self.is_valid checked for guess first
     @return: an array denoting correctness of each letter in guess
     '''
