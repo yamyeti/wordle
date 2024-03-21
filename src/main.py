@@ -1,6 +1,9 @@
 from game.wordle_game import WordleGame
+from player.wordle_player import WordlePlayer
 
 def main():
+    # wp = WordlePlayer()
+    
     # new wordle game object
     wordle_game = WordleGame()
 
