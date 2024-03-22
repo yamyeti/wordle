@@ -5,8 +5,8 @@ class WordleGame:
     player = None
     tries = None
 
-    def __init__(self, file_name):
-        self.game = Wordle(file_name)
+    def __init__(self):
+        self.game = Wordle()
 
     '''
     Getter for Wordle object
@@ -23,18 +23,26 @@ class WordleGame:
     '''
     def play(self):
         self.tries = 6
-        self.game.set_word_of_the_day()
 
-        print('-' * 50)
+        print('-' * 70)
         print('Wordle: Guess the Word of the Day!')
-        print('-' * 50)
-
+        print('-' * 70)
+        inp = input('Manually set word of the day (y/n)? ')
+        if inp == 'y':
+            word = None
+            while not self.game.is_valid_word(word):
+                word = input('Enter a word of the day (invalid words are ignored): ')
+            self.game.set_word_of_the_day(word)
+        else:
+            self.game.random_word_of_the_day()
+        print('-' * 70)
+        
         while self.tries != 0:
             print('Number of tries remaining: ' + str(self.tries))
             print('Word of the day (for debugging): ' +
                   self.game.get_word_of_the_day())
             guess = None
-            while not self.game.is_valid(guess):
+            while not self.game.is_valid_word(guess):
                 guess = input("Guess (invalid words are ignored): ")
             self.game.guess(guess)
             response = self.game.guess(guess)

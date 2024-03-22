@@ -4,18 +4,27 @@ import random
 class Wordle:
     wordle_words = None
     word_of_the_day = None
+    __file_name = 'game/valid-wordle-words.txt'
 
-    def __init__(self, file_name):
-        self.wordle_words = self.read_file(file_name)
+    def __init__(self):
+        self.set_wordle_words()
 
     '''
-    Setter that assigns a random wordle word as word of the day
+    Assigns a random wordle word as word of the day
 
     @return: None
     '''
-    def set_word_of_the_day(self):
+    def random_word_of_the_day(self):
         self.word_of_the_day = self.wordle_words[
             random.randrange(len(self.wordle_words))]
+
+    '''
+    Setter for word of the day (for testing purposes)
+
+    @return: None
+    '''
+    def set_word_of_the_day(self, word):
+        self.word_of_the_day = word
 
     '''
     Getter for word of the day
@@ -26,14 +35,22 @@ class Wordle:
         return self.word_of_the_day
 
     '''
+    Setter for wordle words
+
+    @return: None
+    '''
+    def set_wordle_words(self):
+        self.wordle_words = self.read_file()
+
+    '''
     Reads file of wordle words into list
 
     @param file_name: name of file to read
     @return: list of words in file
     '''
-    def read_file(self, file_name):
+    def read_file(self):
         w = []
-        f = open(file_name, 'r')
+        f = open(self.__file_name, 'r')
         for word in f:
             w.append(word.strip())
         f.close()
@@ -44,7 +61,7 @@ class Wordle:
 
     @return: list of wordle words
     '''
-    def get_words(self):
+    def get_wordle_words(self):
         return self.wordle_words
 
     '''
@@ -53,7 +70,7 @@ class Wordle:
     @param guess: guessed word (str)
     @return: True if guess is valid, False otherwise
     '''
-    def is_valid(self, guess):
+    def is_valid_word(self, guess):
         if guess:
             if len(guess) == 5:
                 if guess in self.wordle_words:
@@ -68,20 +85,19 @@ class Wordle:
     '''
     def guess(self, guess):
         word = [letter for letter in self.word_of_the_day]
-        guess = guess.lower()
+        guess = [letter for letter in guess.lower()]
         response = []
         for i in range(5):
-            response.append(Letter.GRAY)
-            if guess[i] == word[i]:
-                response[-1] = Letter.GREEN
+            if word[i] == guess[i]:
                 word[i] = '_'
+        for i in range(5):
+            response.append(Letter.GRAY)
+            if word[i] == '_':
+                response[-1] = Letter.GREEN
                 continue
             for j in range(5):
                 if i != j and guess[i] == word[j]:
-                    if i == j:
-                        response[-1] = Letter.GREEN
-                    else:
-                        response[-1] = Letter.YELLOW
+                    response[-1] = Letter.YELLOW
                     word[j] = '_'
                     break
         return response
