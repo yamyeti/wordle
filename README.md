@@ -2,6 +2,11 @@
 
 This information retrieval (IR) project was created with the purpose of efficiently playing the web-based game Wordle (i.e., guess the word with the least number of tries). The core implementation makes use of permuterm trees and k-gram indexes of the World dictionary with the open-source IR system Lucene.
 
+## Dependencies
+```
+pip3 install collections typing matplotlib
+```
+
 ## Table of Contents
 - [Workflow](#workflow)
 - [Core Implementation](#core-implementation)
