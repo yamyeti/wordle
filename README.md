@@ -1,12 +1,11 @@
 # Retrieval with Wordle
 
-This information retrieval (IR) project was created with the purpose of efficiently playing the web-based game Wordle (i.e., guess the word with the least number of tries). The core implementation makes use of permuterm trees and k-gram indexes of the World dictionary with the open-source IR system Lucene.
+This information retrieval (IR) project was created with the purpose of efficiently playing the web-based game Wordle (i.e., guess the word with the least number of tries). The core implementation makes use of a positional index of the World dictionary from scratch.
 
 ## Dependencies
 ```
 pip3 install collections typing matplotlib
 ```
-
 ## Table of Contents
 - [Workflow](#workflow)
 - [Core Implementation](#core-implementation)
@@ -25,6 +24,35 @@ Before you start editing any code, you will need to use your own development bra
   ```bash
   python3 main.py
   ```
+
+**To set up the project environment, follow these steps:**
+
+1. Cloning the Repository
+```bash
+git clone https://github.com/yamyeti/wordle.git
+cd wordle
+```
+2. Setting up Virtual Environment
+- Windows
+  ```bash
+  python -m venv <virtual-environment-name>
+  venv\Scripts\activate
+  ```
+- Linux and MacOS
+  ```bash
+  python3 -m venv <virtual-environment-name>
+  source env/bin/activate
+  ```
+4. Keep a Running List of Dependencies
+   ```bash
+   pip freeze > requirements.txt
+   ```
+3. Install the Required Dependencies
+
+   *The virtual environment will make use of its own pip, so you don't need to use pip3.*
+   ```bash
+   pip install -r requirements.txt
+   ```
 
 ## Core Implementation 
 
