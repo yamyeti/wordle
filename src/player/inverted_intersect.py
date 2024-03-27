@@ -21,15 +21,25 @@ class InvertedIntersect:
             index = guess[i] + str(i)
             colors[response[i]].append((index, inv_index[index][0]))
         print(colors)
-        for i in range(colors[Letter.GREEN]):
 
         union = []
         greens = colors[Letter.GREEN]
+        yellows = colors[Letter.YELLOW]
+        grays = colors[Letter.GRAY]
+        print(greens)
+        print(yellows)
+        print(grays)
         if greens:
             green(greens)
-                
+        if yellows:
+            yellow(yellows)
+        if grays:
+            gray(grays)
 
-
-    def green(self, green):
-        if green(greens)
+    def green(self, greens):
         pass
+    def yellow(self, yellows):
+        pass
+    def gray(self, grays):
+        pass
+    
