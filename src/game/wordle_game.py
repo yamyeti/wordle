@@ -57,21 +57,21 @@ class WordleGame:
         print('The word of the day was \"' +
               self.game.get_word_of_the_day() + '\".')
 
-    def get_guess(self):
-        '''
-        Getter for the guessed word
+    # def get_guess(self):
+    #     '''
+    #     Getter for the guessed word
 
-        @Return: guessed word
-        '''
-        return self.guess
+    #     @Return: guessed word
+    #     '''
+    #     return self.guess
 
-    def get_response(self):
-        '''
-        Getter for the color of each letter of the guessed word (wordle response)
+    # def get_response(self):
+    #     '''
+    #     Getter for the color of each letter of the guessed word (wordle response)
 
-        @Return: list of colors of each letter of the guessed word
-        '''
-        return self.response
+    #     @Return: list of colors of each letter of the guessed word
+    #     '''
+    #     return self.response
 
     def player_win(self):
         '''
