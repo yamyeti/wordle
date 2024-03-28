@@ -24,7 +24,6 @@ class InvertedIndex:
                 if letter == doc[pos]:
                     self.inv_index[index].append(doc)
             self.inv_index[index].insert(0, len(self.inv_index[index]))
-        return self.inv_index
     
     def build_indices(self):
         s = set()
@@ -37,6 +36,9 @@ class InvertedIndex:
 
     def print_indices(self):
         print(self.indices)
+
+    def get_index(self):
+        return self.inv_index
 
     def print_index(self):
         for k,v in self.inv_index.items():
