@@ -41,15 +41,16 @@ cd wordle
 - Linux and MacOS
   ```bash
   python3 -m venv <virtual-environment-name>
-  source env/bin/activate
+  source venv/bin/activate
   ```
 4. Keep a Running List of Dependencies
+
+   *The virtual environment will make use of its own pip, so you don't need to use pip3.*
    ```bash
+   pip install <dependencies>
    pip freeze > requirements.txt
    ```
 3. Install the Required Dependencies
-
-   *The virtual environment will make use of its own pip, so you don't need to use pip3.*
    ```bash
    pip install -r requirements.txt
    ```
