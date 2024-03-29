@@ -1,0 +1,3 @@
+/Users/kimsh/Downloads/course/spring24/csc483/proj/wordle/src/cpp/CMakeFiles/wordle.dir
+/Users/kimsh/Downloads/course/spring24/csc483/proj/wordle/src/cpp/CMakeFiles/edit_cache.dir
+/Users/kimsh/Downloads/course/spring24/csc483/proj/wordle/src/cpp/CMakeFiles/rebuild_cache.dir
