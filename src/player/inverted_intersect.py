@@ -6,7 +6,7 @@ class InvertedIntersect:
     valid_guesses = None
     guess = None
     response = None
-    bucket = None
+    postings_bucket = None
 
     def __init__(self):
         pass
@@ -19,8 +19,11 @@ class InvertedIntersect:
         for i in range(5):
             key = self.guess[i] + str(i)
             res = self.response[i]
-            if res == Letter.GREEN or res == Letter.GRAY:
+            if res == Letter.GREEN:
                 bucket[res].append((key, self.inv_index[key][0]))
+            elif res == Letter.GRAY:
+                if key in self.inv_index.keys():
+                    bucket[res].append((key, self.inv_index[key][0]))
             else:
                 if key[0] not in yellows.keys():
                     yellows[key[0]] = []
@@ -30,14 +33,15 @@ class InvertedIntersect:
                 for i in range(5):
                     key = k + pos
                     tmp = k + str(i)
-                    if tmp == key:
-                        bucket[Letter.GRAY].append((tmp, self.inv_index[tmp][0]))
-                    else:
-                        bucket[Letter.YELLOW].append((tmp, self.inv_index[tmp][0]))
+                    if tmp in self.inv_index.keys():
+                        if tmp == key:
+                            bucket[Letter.GRAY].append((tmp, self.inv_index[tmp][0]))
+                        else:
+                            bucket[Letter.YELLOW].append((tmp, self.inv_index[tmp][0]))
         bucket[Letter.GREEN].append(('vg', len(self.valid_guesses)))
         for v in bucket.values():
             self.sort_postings(v)
-        self.bucket = bucket
+        self.postings_bucket = bucket
 
     def get_intersection(self, guess, response, inv_index, valid_guesses):
         '''
@@ -54,18 +58,16 @@ class InvertedIntersect:
         self.guess = guess
         self.response = response
         self.bucket()
-        print(self.bucket)
-        greens = self.intersection(self.bucket[Letter.GREEN])
+        greens = self.intersection(self.postings_bucket[Letter.GREEN])
         # print(greens)
-        yellows = self.union(self.bucket[Letter.YELLOW])
+        yellows = self.union(self.postings_bucket[Letter.YELLOW])
         # print(yellows)
-        grays = self.union(self.bucket[Letter.GRAY])
+        grays = self.union(self.postings_bucket[Letter.GRAY])
         # print(grays)
 
         minus = self.minus(greens, grays)
         if yellows:
             return self.intersection([minus, yellows])
-        print(minus)
         return minus
 
     def sort_postings(self, postings):
