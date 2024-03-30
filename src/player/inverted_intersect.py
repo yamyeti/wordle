@@ -58,6 +58,7 @@ class InvertedIntersect:
         self.guess = guess
         self.response = response
         self.bucket()
+        # print(self.postings_bucket)
         greens = self.intersection(self.postings_bucket[Letter.GREEN])
         # print(greens)
         yellows = self.union(self.postings_bucket[Letter.YELLOW])
