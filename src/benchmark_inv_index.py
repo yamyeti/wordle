@@ -102,13 +102,14 @@ class BenchmarkInvIndex:
         res = self.game.guess(guess)
         self.incr_num_tries()
         if self.win(res):
-            # print(valid_guesses)
+
             return
         index = self.inv_index.index(valid_guesses)
         intersection = self.inv_intersect.get_intersection(guess,
-                                                      res,
-                                                      index,
-                                                      valid_guesses)
+                                                           res,
+                                                           index,
+                                                           valid_guesses)
+        print(intersection)
         self.play(intersection[0], intersection)
 
     def benchmark_alphabet(self):
@@ -130,8 +131,9 @@ class BenchmarkInvIndex:
               + ' min.')
 
 def main():
-    b = BenchmarkInvIndex('adieu')
-    b.benchmark_alphabet()
+    b = BenchmarkInvIndex('pares')
+    # b.benchmark_alphabet()
+    b.benchmark('speak')
 
 if __name__ == '__main__':
     main()
