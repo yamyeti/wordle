@@ -1,0 +1,4 @@
+['aspie', 'scape', 'sepad', 'sepal', 'sepia', 'septa', 'shape', 'sneap', 'space', 'spade', 'spake', 'spale', 'spane', 'spare', 'spate', 'speak', 'speal', 'spean', 'spear', 'speat', 'vespa']
+['sneap', 'speak', 'speal', 'spean', 'spear', 'speat', 'vespa']
+['speak', 'speal', 'spean', 'spear', 'speat']
+Number of tries to win: 4
