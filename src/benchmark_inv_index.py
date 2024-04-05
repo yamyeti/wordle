@@ -61,7 +61,7 @@ class BenchmarkInvIndex:
         for word in w_s_w:
             self.game.set_word_of_the_day(word)
             self.play(self.opener, self.wordle_words)
-            # print('Solved \'' + word + '\' in ' + str(self.num_tries) + ' tries.')
+            print('Solved \'' + word + '\' in ' + str(self.num_tries) + ' tries.')
             ctr += self.num_tries
             self.reset_num_tries()
         duration = round(time.time() - start, 4)
@@ -102,7 +102,6 @@ class BenchmarkInvIndex:
         res = self.game.guess(guess)
         self.incr_num_tries()
         if self.win(res):
-
             return
         index = self.inv_index.index(valid_guesses)
         intersection = self.inv_intersect.get_intersection(guess,
@@ -133,7 +132,7 @@ class BenchmarkInvIndex:
 def main():
     b = BenchmarkInvIndex('pares')
     # b.benchmark_alphabet()
-    b.benchmark('speak')
+    b.benchmark('serum')
 
 if __name__ == '__main__':
     main()

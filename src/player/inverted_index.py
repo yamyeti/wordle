@@ -33,7 +33,7 @@ class InvertedIndex:
                 s.add(doc[i] + str(i))
             if len(s) == 130:
                 break
-        self.indices = sorted(s)
+        self.indices = s
 
     def print_indices(self):
         print(self.indices)
