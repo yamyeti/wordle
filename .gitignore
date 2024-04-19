@@ -127,6 +127,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+wordle_venv
 
 # Spyder project settings
 .spyderproject
@@ -160,5 +161,47 @@ cython_debug/
 #.idea/
 src/.DS_Store
 .DS_Store
-/src/game/old models
-/src/game/answers
+CMakeLists.txt.user
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Testing
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+wordle
