@@ -1,42 +1,50 @@
 from collections import Counter
 from typing import Iterator, Iterable, List, Tuple, Text, Dict, Union
+from math import log10
 
 NESTED_DICT = Dict[str, Dict[str, Union[str, float]]]
 WORD_TUPLE = Iterable[Tuple[Text, List[str]]]
+TOTAL_DOCS = 9615720
 
-class WordleScorer:
+class WordleGuessScorer:
 	'''
-	WordleScorer class for returning multiple statistics
-	and evaluates each guess.
+	WordleGuessScorer class for returning the best guess based on
+	multiple statistics. 
 
-	Ex:
+	Code in the wild:
 	>>> game = Wordle() 
 	>>> inv_index = InvertedIndex()
 	>>> inv_intersect = InvertedIntersection()
 	>>> game.set_word_of_the_day('plait)
-	>>> scorer = WordleScorer(g.get_wordle_words())
-	>>> best_guess = scorer.get_best_guess()
+	>>> words_list = game.get_wordle_words()
+	>>> scorer = WordleGuessScorer(words_list)
+	>>> best_guess = scorer.get_best_guess(scoring_method='zipf')
 	>>> res = game.guess(best_guess)
 	>>> words_list = inv_intersect.get_intersection(...)
 	>>> scorer.recompute_scoring(words_list)
 	>>> best_guess = scorer.get_best_guess()
 	'''
-	wordle_words = None
-	word_of_the_day = None
-	words_tuple = None
-	scores = None
+	wordle_words = None # changes once the recompute scoring is called
+	word_of_the_day = None # constant
+	words_tuple = None # changes once the recompute scoring is called
+	scores = None # changes once the recompute scoring is called
+	idf = None # constant
+	zipf_idf = None # constant
 
 	def __init__(self, wordle_words_list):
 		self.wordle_words = wordle_words_list
-		self.read_words()
+		self.generate_word_tuples()
 
 		self.overall_freq = self.get_overall_freq()
-		self.pos1_freq = self.get_first_freq()
-		self.pos2_freq = self.get_second_freq()
-		self.pos3_freq = self.get_third_freq()
-		self.pos4_freq = self.get_fourth_freq()
-		self.pos5_freq = self.get_fifth_freq()
-		self.word_scores()
+		self.position_scores = {}
+		self.pos1_freq = self.get_position_freq(0)
+		self.pos2_freq = self.get_position_freq(1)
+		self.pos3_freq = self.get_position_freq(2)
+		self.pos4_freq = self.get_position_freq(3)
+		self.pos5_freq = self.get_position_freq(4)
+
+		self.calculate_word_scores()
+		self.read_idf_scores()
 
 	def set_word_of_the_day(self, word):
 		'''
@@ -44,38 +52,50 @@ class WordleScorer:
 		'''
 		self.word_of_the_day = word
 
-	def read_words(self) -> WORD_TUPLE:
-		'''
-		Generates (word, character_list) tuple from the lines in the text file.
-		Example: ('aahed', ['a', 'a', 'h', 'e', 'd'])
+	def generate_word_tuples(self) -> WORD_TUPLE:
+		"""
+		Generates (word, character_list) tuple from the wordle text file.
+		
+		Ex: ('aahed', ['a', 'a', 'h', 'e', 'd'])
+		"""
+		self.words_tuple = [(word, [*word]) for word in self.wordle_words]		
 
-		'''
-		words_tup = []
-		for elem in self.wordle_words:
-			word = elem
-			characters = [*word]
-			tup = (word, characters)
-			words_tup.append(tup)
-		self.words_tuple = words_tup
+	def read_idf_scores(self, path="game/five_letter_words_freq.txt") -> Dict:
+		"""
+		Generates a dictionary {'word': idf_score} from the text file.
+		
+		@param path: text file from large corpora, filtered for five letter words
+		@return: dictionary with computed idf score
+		"""
+		doc_freq = {}
+		idf = {}
+		with open(path, 'r') as infile:
+			for line in infile:
+				word,freq = line.split()
+				doc_freq[word] = freq
+		for word in self.scores.keys():
+			# add-one smoothing 
+			if word not in doc_freq.keys():
+				doc_freq[word] = 1
+		for word,freq in doc_freq.items():
+			total_docs = TOTAL_DOCS 
+			idf[word] = log10(total_docs/int(freq))
+		self.idf = idf
 
 	def count_words(self) -> int:
 		'''
-		Method that counts the total amount of words. Intended to
-		be called upon after each guess.
+		Method that counts the total amount of words. 
 		'''
-		count = 0
-		for word in self.words_tuple:
-			count += 1
-		return count
+		return len(self.words_tuple)
 
 	def levenshtein_distance(self, guess_word: str) -> int:
-		'''
+		"""
 		The levenshtein distance is used as an evaluation metric after 
 		guessing is finished and wotd is revealed.
 
 		@param guess_word: checks for a guess word to compare to the wotd
 		@return: integer that tells you how different two strings are
-		'''
+		"""
 		s1 = len(guess_word)
 		s2 = len(self.word_of_the_day)
 
@@ -96,97 +116,70 @@ class WordleScorer:
 		return D[i][j]
 
 	def get_overall_freq(self) -> Dict:
-		'''
+		"""
 		Method for calculating the overall letter distribution. 
 
 		@return: dictionary in descending order
-		'''
+		"""
 		counts = Counter()
-		for tup in self.words_tuple:
-			counts.update(tup[0])
-		sort_freq = dict(sorted(counts.items(), key=lambda x: x[1], reverse=True))
-		self.sort_freq = sort_freq
+		for word,_ in self.words_tuple:
+			counts.update(word)
+		sorted_freq = dict(sorted(counts.items(), key=lambda x: x[1], reverse=True))
+		self.sorted_freq = sorted_freq
 		self.overall_scores = self.letter_scores()
-		return sort_freq
+		return sorted_freq
 
-	def get_first_freq(self) -> Dict:
-		'''
-		Method for calculating the starting letter frequency. 
+	def get_position_freq(self, position: int) -> Dict:
+		"""
+		Method for calculating the letter frequency based on its position.
 
 		@return: dictionary in descending order
-		'''
+		"""
 		counts = Counter()
-		for tup in self.words_tuple:
-			counts.update(tup[0][0])
-		sort_freq = dict(sorted(counts.items(), key=lambda x: x[1], reverse=True))
-		self.sort_freq = sort_freq
-		self.pos1_scores= self.letter_scores()
-		return sort_freq
-
-	def get_second_freq(self) -> Dict:
-		counts = Counter()
-		for tup in self.words_tuple:
-			counts.update(tup[0][1])
-		sort_freq = dict(sorted(counts.items(), key=lambda x: x[1], reverse=True))
-		self.sort_freq = sort_freq
-		self.pos2_scores = self.letter_scores()
-		return sort_freq
-
-	def get_third_freq(self) -> Dict:
-		counts = Counter()
-		for tup in self.words_tuple:
-			counts.update(tup[0][2])
-		sort_freq = dict(sorted(counts.items(), key=lambda x: x[1], reverse=True))
-		self.sort_freq = sort_freq
-		self.pos3_scores = self.letter_scores()
-		return sort_freq
-
-	def get_fourth_freq(self) -> Dict:
-		counts = Counter()
-		for tup in self.words_tuple:
-			counts.update(tup[0][3])
-		sort_freq = dict(sorted(counts.items(), key=lambda x: x[1], reverse=True))
-		self.sort_freq = sort_freq
-		self.pos4_scores = self.letter_scores()
-		return sort_freq
-
-	def get_fifth_freq(self) -> Dict:
-		counts = Counter()
-		for tup in self.words_tuple:
-			counts.update(tup[0][4])
-		sort_freq = dict(sorted(counts.items(), key=lambda x: x[1], reverse=True))
-		self.sort_freq = sort_freq
-		self.pos5_scores = self.letter_scores()
-		return sort_freq
+		for word,_ in self.words_tuple:
+			counts.update(word[position])
+		sorted_freq = dict(sorted(counts.items(), key=lambda x: x[1], reverse=True))
+		self.sorted_freq = sorted_freq
+		self.position_scores[position] = self.letter_scores()
+		return sorted_freq
 
 	def letter_scores(self) -> NESTED_DICT:
-		'''
-		Generates a score for each letter distribution from the sort_freq attribute in 
-		each get_frequency method by using the relative frequencies to scale each score.
+		"""
+		Generates a score for each letter distribution from the sorted_freq attribute. 
 
 		A low score is desirable and indicates the penalty for choosing the letter. The 
 		score is incremented with each for loop by adding the previous zipf score.
 
-		Adjusted Zipf's law: freq ∝ 1 / (rank + β) where β is letter frequency/total frequency
+		Zipf's law: freq ∝ 1 / (rank + β) : where β is letter frequency/total frequency
 
-		Ex: {'e': {'relFrq': 0.10037, 'zipf': 0.90879, 'score': 0.90879}, 
+		@return: Letter distribution
+		Ex: Fifth position
+			{'s': {'relative_freq': 0.29209, 'zipf': 1.29209, 'score': 1.29209},
+			 'e': {'relative_freq': 0.11706, 'zipf': 0.61706, 'score': 1.90915},
 			...
-			 'q': {'relFrq': 0.00195, 'zipf': 0.03846, 'score': 3.71671}}
-		'''
-		total = sum(self.sort_freq.values())
+			 'j': {'relative_freq': 0.0002, 'zipf': 0.03866, 'score': 4.85442}}		
+		"""
+		total_freq = sum(self.sorted_freq.values())
 		scores = {}
 		rank = 1
 		accumulator = 0
-		for key, val in self.sort_freq.items():
-			scores[key] = {}
-			scores[key]['relFrq'] = round(val/total, 5)
-			scores[key]['zipf'] = round(1 / (rank + scores[key]['relFrq']), 5)
+		for letter, freq in self.sorted_freq.items():
+			scores[letter] = {}
+			scores[letter]['relative_freq'] = round(freq/total_freq, 5)
+			scores[letter]['zipf'] = round(1 / rank + scores[letter]['relative_freq'], 5)
 			rank += 1
-			scores[key]['score'] = round(accumulator + scores[key]['zipf'], 5)
-			accumulator = scores[key]['score']
+			scores[letter]['score'] = round(accumulator + scores[letter]['zipf'], 5)
+			accumulator = scores[letter]['score']
 		return scores
 
-	def word_scores(self, penalty=3.0) -> Dict:
+	def calculate_word_scores(self, penalty=6.0) -> Dict[str, float]:
+		"""
+		Calculates the scores for each word based off their letter distribution.
+
+		@param penalty: Hyperparam set at 6 to reward heterograms (no letter occurs more than once). 
+						Decrease the penalty to instead reward words that share common letters.
+		@return: dictionary of word scores
+		"""
 		self.penalty = penalty
 		scores_tup = []
 		for word in self.words_tuple:
@@ -196,15 +189,15 @@ class WordleScorer:
 			for idx, char in enumerate(word[0]):
 				score += self.overall_scores[char]['score']
 				if idx == 0:
-					score += self.pos1_scores[char]['score']
+					score += self.position_scores[0][char]['score']
 				elif idx == 1:
-					score += self.pos2_scores[char]['score']
+					score += self.position_scores[1][char]['score']
 				elif idx == 2:
-					score += self.pos3_scores[char]['score']
+					score += self.position_scores[2][char]['score']
 				elif idx == 3:
-					score += self.pos4_scores[char]['score']
+					score += self.position_scores[3][char]['score']
 				elif idx == 4:
-					score += self.pos5_scores[char]['score']
+					score += self.position_scores[4][char]['score']
 				tup = (word[0], round(score, 5))
 			scores_tup.append(tup)
 		unsorted_scores = dict(scores_tup)
@@ -212,22 +205,49 @@ class WordleScorer:
 		self.scores = scores
 		return scores
 
-	def get_best_guess(self, topk=1) ->List:
-		'''
-		Getter method for the best guess
+	def calculate_zipf_idf(self) -> Dict[str, float]:
+		"""
+		Calculates a modified TF-IDF score, based on its zipf score and inverse 
+		document frequency, which generates a new score that boosts common words. 
 
-		@param topk: optional for topk best words  
-		@return: best guess
-		'''
-		return " ".join(list(self.scores)[:topk])
+		@return: dictionary containing TF-IDF scores for each word
+		"""
+		zipf_idf = {}
+		for word in self.scores:
+			if word in self.idf:
+				zipf_idf[word] = self.scores[word] + self.idf[word]
+		sort_zipf_idf = dict(sorted(zipf_idf.items(), key=lambda x: x[1], reverse=False))
+		self.zipf_idf = sort_zipf_idf
+		return sort_zipf_idf
 
-	def recompute_scoring(self, intersected_words,penalty=5) -> None:
+	def get_best_guess(self, topk=1, scoring_method="zipf") -> List[str]:
+		"""
+		Getter method for returning the best guess based on the specified scoring.
+
+		@param topk: number of top words to return
+		@param scoring_method: default value zipf (also zipf_idf)
+		@return: list of best guesses
+		"""
+		if scoring_method == "zipf_idf":
+			scores = self.calculate_zipf_idf()
+		else:
+			scores = self.scores
+		return list(scores.keys())[:topk]
+
+	def recompute_scoring(self, intersected_words=None, penalty=6) -> None:
+		"""
+		Method for returning the best guess based on a list of intersected words.
+
+		@param intersected_words: 
+		@param penalty: option to increase or decrease penalty for non-heterograms
+		@return : None. Call get_best_guess() method after
+		"""
 		self.wordle_words = intersected_words
-		self.read_words()
+		self.generate_word_tuples()
 		self.overall_freq = self.get_overall_freq()
-		self.pos1_freq = self.get_first_freq()
-		self.pos2_freq = self.get_second_freq()
-		self.pos3_freq = self.get_third_freq()
-		self.pos4_freq = self.get_fourth_freq()
-		self.pos5_freq = self.get_fifth_freq()
-		self.word_scores(penalty=penalty)
+		self.pos1_freq = self.get_position_freq(0)
+		self.pos2_freq = self.get_position_freq(1)
+		self.pos3_freq = self.get_position_freq(2)
+		self.pos4_freq = self.get_position_freq(3)
+		self.pos5_freq = self.get_position_freq(4)
+		self.calculate_word_scores(penalty=penalty)
