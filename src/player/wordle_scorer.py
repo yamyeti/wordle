@@ -205,22 +205,26 @@ class WordleGuessScorer:
 		self.scores = scores
 		return scores
 
-	def calculate_zipf_idf(self) -> Dict[str, float]:
+	def calculate_zipf_idf(self, reg=None) -> Dict[str, float]:
 		"""
 		Calculates a modified TF-IDF score, based on its zipf score and inverse 
 		document frequency, which generates a new score that boosts common words. 
 
 		@return: dictionary containing TF-IDF scores for each word
 		"""
+		if reg != None:
+			lamb = reg
+		else:
+			lamb = 1
 		zipf_idf = {}
 		for word in self.scores:
 			if word in self.idf:
-				zipf_idf[word] = self.scores[word] + self.idf[word]
+				zipf_idf[word] = self.scores[word] + (lamb * self.idf[word])
 		sort_zipf_idf = dict(sorted(zipf_idf.items(), key=lambda x: x[1], reverse=False))
 		self.zipf_idf = sort_zipf_idf
 		return sort_zipf_idf
 
-	def get_best_guess(self, topk=1, scoring_method="zipf") -> List[str]:
+	def get_best_guess(self, topk=1, scoring_method="zipf", lambduh=None) -> List[str]:
 		"""
 		Getter method for returning the best guess based on the specified scoring.
 
@@ -229,7 +233,7 @@ class WordleGuessScorer:
 		@return: list of best guesses
 		"""
 		if scoring_method == "zipf_idf":
-			scores = self.calculate_zipf_idf()
+			scores = self.calculate_zipf_idf(lambduh)
 		else:
 			scores = self.scores
 		return list(scores.keys())[:topk]

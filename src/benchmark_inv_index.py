@@ -1,5 +1,6 @@
 from player.inverted_index import InvertedIndex
 from player.inverted_intersect import InvertedIntersect
+from player.wordle_scorer import WordleGuessScorer
 
 from game.wordle import Wordle, Letter
 
@@ -12,6 +13,7 @@ class BenchmarkInvIndex:
     inv_intersect = None
     opener = None
     num_tries = None
+    scorer = None
 
     def __init__(self, opener):
         self.game = Wordle()
@@ -99,6 +101,8 @@ class BenchmarkInvIndex:
         return True
         
     def play(self, guess, valid_guesses):
+        print(f"Guess: {guess.upper()}")
+        self.scorer = WordleGuessScorer(valid_guesses)
         res = self.game.guess(guess)
         self.incr_num_tries()
         if self.win(res):
@@ -109,7 +113,14 @@ class BenchmarkInvIndex:
                                                            index,
                                                            valid_guesses)
         print(intersection)
-        self.play(intersection[0], intersection)
+
+        # SCORING VERSION
+        self.scorer.recompute_scoring(intersection, penalty=6)
+        guess = self.scorer.get_best_guess(scoring_method='zipf_idf', lambduh=1)[0]
+        self.play(guess, intersection)
+
+        # BRUTE FORCE (ALPHABET) VERSION
+        # self.play(intersection[0], intersection)
 
     def benchmark_alphabet(self):
         '''
@@ -130,9 +141,10 @@ class BenchmarkInvIndex:
               + ' min.')
 
 def main():
-    b = BenchmarkInvIndex('pares')
+    guess = input("Provide your guess: ")
+    b = BenchmarkInvIndex(guess.lower())
     # b.benchmark_alphabet()
-    b.benchmark('serum')
+    b.benchmark('gleam')
 
 if __name__ == '__main__':
     main()
