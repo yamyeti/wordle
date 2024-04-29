@@ -45,7 +45,7 @@ class BenchmarkInvIndex:
             print(f"Max tries reached for guess: {guess.upper()}. Moving to next word.")
             return
         #print(f"Playing with guess: {guess.upper()}")  # Print the current guess
-        self.scorer = WordleGuessScorer(valid_guesses)
+        self.scorer = WordleGuessScorer(valid_guesses) # THIS ONE
         self.last_result = self.game.guess(guess)  # Store the result of the guess
         #print(f"Result of guess '{guess}': {self.last_result}")  # Print the result of the guess
         self.incr_num_tries()
@@ -56,9 +56,10 @@ class BenchmarkInvIndex:
         intersection = self.inv_intersect.get_intersection(guess, self.last_result, index, valid_guesses)
         print(f"Valid guesses left: {len(intersection)}")  # Print the number of valid guesses left
 
-        self.scorer.recompute_scoring(intersection, penalty=6)
-        guess = self.scorer.get_best_guess(scoring_method='zipf_idf', lambduh=1)[0]
-        self.play(guess, intersection)  # Recurse only if not reached max tries
+        self.scorer.recompute_scoring(intersection, penalty=6) # THIS TWO
+        guess = self.scorer.get_best_guess(scoring_method='zipf_idf', lambduh=1)[0] # THIS THREE CHANGE INTERSECTION[0] to guess
+        # self.play(intersection[0], intersection) # (Run for Naive Implementation)
+        self.play(guess, intersection)  # Recurse only if not reached max tries (Run Zipfian-IDF Implementation)
 
     def benchmark_words_starting_with(self, letter):
         results = {'letter': letter}
@@ -116,7 +117,8 @@ class BenchmarkInvIndex:
 def main():
     guess = input("Provide your guess: ")
     b = BenchmarkInvIndex(guess.lower())
-    b.benchmark_alphabet()
+    # b.benchmark_alphabet()
+    b.benchmark_words_starting_with('i')
 
 if __name__ == '__main__':
     main()

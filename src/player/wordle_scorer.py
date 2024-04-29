@@ -150,7 +150,7 @@ class WordleGuessScorer:
 		A low score is desirable and indicates the penalty for choosing the letter. The 
 		score is incremented with each for loop by adding the previous zipf score.
 
-		Zipf's law: freq ∝ 1 / (rank + β) : where β is letter frequency/total frequency
+		Penalty = 1 / (rank + β) : where β is letter frequency/total frequency
 
 		@return: Letter distribution
 		Ex: Fifth position
@@ -207,7 +207,7 @@ class WordleGuessScorer:
 
 	def calculate_zipf_idf(self, reg=None) -> Dict[str, float]:
 		"""
-		Calculates a modified TF-IDF score, based on its zipf score and inverse 
+		Calculates a modified TF-IDF score, based on its penalty and inverse 
 		document frequency, which generates a new score that boosts common words. 
 
 		@return: dictionary containing TF-IDF scores for each word

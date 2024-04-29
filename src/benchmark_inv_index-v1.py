@@ -115,12 +115,12 @@ class BenchmarkInvIndex:
         print(intersection)
 
         # SCORING VERSION
-        self.scorer.recompute_scoring(intersection, penalty=6)
-        guess = self.scorer.get_best_guess(scoring_method='zipf_idf', lambduh=1)[0]
-        self.play(guess, intersection)
+        # self.scorer.recompute_scoring(intersection, penalty=6)
+        # guess = self.scorer.get_best_guess(scoring_method='zipf_idf', lambduh=1)[0]
+        # self.play(guess, intersection)
 
         # BRUTE FORCE (ALPHABET) VERSION
-        # self.play(intersection[0], intersection)
+        self.play(intersection[0], intersection)
 
     def benchmark_alphabet(self):
         '''
@@ -141,10 +141,14 @@ class BenchmarkInvIndex:
               + ' min.')
 
 def main():
+    # main
     guess = input("Provide your guess: ")
     b = BenchmarkInvIndex(guess.lower())
+
+    # b = BenchmarkInvIndex('slate')
+    # b.benchmark_words_starting_with('a')
     # b.benchmark_alphabet()
-    b.benchmark('gleam')
+    b.benchmark('prune')
 
 if __name__ == '__main__':
     main()
