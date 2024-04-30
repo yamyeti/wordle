@@ -1,72 +1,66 @@
-# Retrieval with Wordle
+# Retrieval-with-Wordle
+Contributors: Martinus Kleiweg, Shawn Kim, and Matthew Hernandez
+> **Note** Access to our paper [here](dont-forget-this)
 
-This information retrieval (IR) project was created with the purpose of efficiently playing the web-based game Wordle (i.e., guess the word with the least number of tries). The core implementation makes use of a positional index of the World dictionary from scratch.
+Last updated April 30th, 2024.
 
-## Dependencies
-```
-pip3 install collections typing matplotlib
-```
+> **Note** The scope of this project involves the following points: indexing and retrieval, measuring performance, error analysis, and a proposed improved implementation.
+
+This project was created for the purpose of applying techniques in Information Retrieval (IR) to develop a strategy to efficiently play Wordle.
+
 ## Table of Contents
-- [Workflow](#workflow)
-- [Core Implementation](#core-implementation)
-- [Measuring Performance](#measuring-performance)
-- [Error Analysis](#error-analysis)
-- [Improved Implementation](#improved-implementation)
+- [Objective](#objective)
+- [Instructions](#instructions)
+- [See More](#see-more)
 
+## Objective
+In this repository we describe our end-to-end-implementation of the popular Wordle game, using various Information Retrieval (IR) techniques, together with Reinforcement Learning and large language models. The goal of the game is to guess the word-of-the-day under six attempts with the help of feedback in the form of colored tiles. The system operates on algorithms that index five-letter words and perform a boolean search over them. We present analysis over two popular starting words, and make use of an inverted-index to reduce the search after each guess.
 
-## Workflow
-> **Note** Intended only for project team.
+## Instructions
+> The code is intended to be run in the terminal. There are two main files to run: ```benchmark_inv_index_v2.py``` and ```prompt.py```. You will need a list of previous solutions to Wordle to use the prompt file. This can be found [here](https://wordfinder.yourdictionary.com/wordle/answers/).
 
-Before you start editing any code, you will need to use your own development branch in the repository to hold your own work.
-- Any time you want to add something to the code, please make a separate branch and create a pull request. This is so we can review and understand what everyone is contributing and be notified when we need to pull from main.
-- Please do not directly push to main (**very important, we should not merge our own pull request, someone else will review and merge it!**)
-- Run this inside the terminal inside the source folder src to play Wordle. 
-  ```bash
-  python3 main.py
-  ```
+In order to reproduce the results from the paper please follow these steps: 
 
-**To set up the project environment, follow these steps:**
-
-1. Cloning the Repository
+1. Clone the Repository
 ```bash
-git clone https://github.com/yamyeti/wordle.git
-cd wordle
+git clone git@github.com:weezymatt/Retrieval-with-Wordle.git
 ```
-2. Setting up Virtual Environment
-- Windows
+2. Change Directory
   ```bash
-  python -m venv <virtual-environment-name>
-  venv\Scripts\activate
+  cd src/
   ```
-- Linux and MacOS
+3. Running the ```prompt.py``` file requires you to have an OpenAI account to be able to programatically run prompts with an API key as an environment variable. Skip if you are not interested. Unfortunately, you must fund your account ($5.00 minimum) even though you can run some free API calls. Sorry.
+- Create an environment variable.
   ```bash
-  python3 -m venv <virtual-environment-name>
-  source venv/bin/activate
+  nano .env
+  OPENAI_API_KEY=<paste-your-openai-key-here>
   ```
-4. Keep a Running List of Dependencies
+- Run the prompt and use the previous solutions to Wordle.
+  ```bash
+  python3 prompt.py
+  ```
+- Read the prompt and use the recommended word in brackets.
+  > To choose the most helpful starting word for the next game of Wordle, I will consider the previous solutions - "vapid," "gleam," and "prune.
 
-   *The virtual environment will make use of its own pip, so you don't need to use pip3.*
-   ```bash
-   pip install <dependencies>
-   pip freeze > requirements.txt
-   ```
-3. Install the Required Dependencies
-   ```bash
-   pip install -r requirements.txt
-   ```
+  > Looking at these words, I see that they are quite diverse in terms of their starting letters and vowel/consonant distributions. To increase our chances of hitting      > the target word in the fewest guesses possible, I will go with a word that has a good mix of vowels and consonants, as well as a variety of starting letters.
 
-## Core Implementation 
+  > Considering this information, a good starting word could be "charm" **[charm]**. This word has a nice balance of vowels and consonants, and the starting letter   > is different from the previous solutions. The variety in letters can help cover a wider range of possible words in the Wordle game.
 
-blah
+4. The default code in ```benchmark_inv_index_v2.py``` is written such that it will be run against all the letters for the selected character. Run the benchmark file to test the main system. 
+- Choose the starting letter for the word-of-the-day or a word that you want to test.
+  ```python
+  def main():
+    guess = input("Provide your guess: ")
+    b = BenchmarkInvIndex(guess.lower())
+    # b.benchmark_alphabet()
+    b.benchmark_words_starting_with('<LETTER>')
+  ```
+- Run the benchmark by providing a guess to initialize the intersection.
+  > Tip: You may use adieu, slate, ChatGPT's recommendation, or your choice!
+  ```bash
+  python3 benchmark_inv_index_v2.py
+  Provide your guess: <INSERT-YOUR-WORD>
+  ```
+5. A text file of statistics is printed in this directory and you can see how your guess faired against the word of the day. 
 
-## Measuring Performance
-
-blah
-
-## Error Analysis
-
-blah
-
-## Improved Implementation
-
-blah
+## see more?
