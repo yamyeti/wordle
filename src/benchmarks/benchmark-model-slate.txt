@@ -1,0 +1,212 @@
+Evaluation of each starting letter:
+
+Using 'slate' as the start word for the first guess in each game.
+
+Words starting with 'a':
+Number of words:		868
+Number of words successfully solved:	782
+Percentage of words successfully solved:	90.09%
+Total time taken:		99.7713s
+Average tries per word:	4.379
+Average time per word:	0.1149s
+
+Words starting with 'b':
+Number of words:		1003
+Number of words successfully solved:	847
+Percentage of words successfully solved:	84.45%
+Total time taken:		127.6271s
+Average tries per word:	4.470
+Average time per word:	0.1272s
+
+Words starting with 'c':
+Number of words:		970
+Number of words successfully solved:	832
+Percentage of words successfully solved:	85.77%
+Total time taken:		137.8985s
+Average tries per word:	4.787
+Average time per word:	0.1422s
+
+Words starting with 'd':
+Number of words:		735
+Number of words successfully solved:	626
+Percentage of words successfully solved:	85.17%
+Total time taken:		107.7073s
+Average tries per word:	4.796
+Average time per word:	0.1465s
+
+Words starting with 'e':
+Number of words:		330
+Number of words successfully solved:	304
+Percentage of words successfully solved:	92.12%
+Total time taken:		41.3197s
+Average tries per word:	4.482
+Average time per word:	0.1252s
+
+Words starting with 'f':
+Number of words:		646
+Number of words successfully solved:	545
+Percentage of words successfully solved:	84.37%
+Total time taken:		88.2721s
+Average tries per word:	4.854
+Average time per word:	0.1366s
+
+Words starting with 'g':
+Number of words:		685
+Number of words successfully solved:	545
+Percentage of words successfully solved:	79.56%
+Total time taken:		101.7169s
+Average tries per word:	5.038
+Average time per word:	0.1485s
+
+Words starting with 'h':
+Number of words:		532
+Number of words successfully solved:	383
+Percentage of words successfully solved:	71.99%
+Total time taken:		83.3520s
+Average tries per word:	5.126
+Average time per word:	0.1567s
+
+Words starting with 'i':
+Number of words:		180
+Number of words successfully solved:	168
+Percentage of words successfully solved:	93.33%
+Total time taken:		24.2989s
+Average tries per word:	4.706
+Average time per word:	0.1350s
+
+Words starting with 'j':
+Number of words:		225
+Number of words successfully solved:	153
+Percentage of words successfully solved:	68.00%
+Total time taken:		34.9635s
+Average tries per word:	5.244
+Average time per word:	0.1554s
+
+Words starting with 'k':
+Number of words:		429
+Number of words successfully solved:	320
+Percentage of words successfully solved:	74.59%
+Total time taken:		65.6695s
+Average tries per word:	5.198
+Average time per word:	0.1531s
+
+Words starting with 'l':
+Number of words:		625
+Number of words successfully solved:	483
+Percentage of words successfully solved:	77.28%
+Total time taken:		66.0363s
+Average tries per word:	4.755
+Average time per word:	0.1057s
+
+Words starting with 'm':
+Number of words:		951
+Number of words successfully solved:	679
+Percentage of words successfully solved:	71.40%
+Total time taken:		148.6993s
+Average tries per word:	5.200
+Average time per word:	0.1564s
+
+Words starting with 'n':
+Number of words:		468
+Number of words successfully solved:	326
+Percentage of words successfully solved:	69.66%
+Total time taken:		74.4595s
+Average tries per word:	5.280
+Average time per word:	0.1591s
+
+Words starting with 'o':
+Number of words:		352
+Number of words successfully solved:	284
+Percentage of words successfully solved:	80.68%
+Total time taken:		49.7048s
+Average tries per word:	4.955
+Average time per word:	0.1412s
+
+Words starting with 'p':
+Number of words:		1130
+Number of words successfully solved:	742
+Percentage of words successfully solved:	65.66%
+Total time taken:		172.2144s
+Average tries per word:	5.296
+Average time per word:	0.1524s
+
+Words starting with 'q':
+Number of words:		103
+Number of words successfully solved:	85
+Percentage of words successfully solved:	82.52%
+Total time taken:		15.0272s
+Average tries per word:	5.175
+Average time per word:	0.1459s
+
+Words starting with 'r':
+Number of words:		795
+Number of words successfully solved:	547
+Percentage of words successfully solved:	68.81%
+Total time taken:		121.5791s
+Average tries per word:	5.270
+Average time per word:	0.1529s
+
+Words starting with 's':
+Number of words:		1666
+Number of words successfully solved:	1341
+Percentage of words successfully solved:	80.49%
+Total time taken:		147.5933s
+Average tries per word:	4.715
+Average time per word:	0.0886s
+
+Words starting with 't':
+Number of words:		882
+Number of words successfully solved:	702
+Percentage of words successfully solved:	79.59%
+Total time taken:		90.3021s
+Average tries per word:	4.813
+Average time per word:	0.1024s
+
+Words starting with 'u':
+Number of words:		217
+Number of words successfully solved:	181
+Percentage of words successfully solved:	83.41%
+Total time taken:		30.6336s
+Average tries per word:	4.949
+Average time per word:	0.1412s
+
+Words starting with 'v':
+Number of words:		284
+Number of words successfully solved:	178
+Percentage of words successfully solved:	62.68%
+Total time taken:		42.9663s
+Average tries per word:	5.342
+Average time per word:	0.1513s
+
+Words starting with 'w':
+Number of words:		434
+Number of words successfully solved:	234
+Percentage of words successfully solved:	53.92%
+Total time taken:		69.4074s
+Average tries per word:	5.461
+Average time per word:	0.1599s
+
+Words starting with 'x':
+Number of words:		18
+Number of words successfully solved:	13
+Percentage of words successfully solved:	72.22%
+Total time taken:		2.6016s
+Average tries per word:	5.167
+Average time per word:	0.1445s
+
+Words starting with 'y':
+Number of words:		205
+Number of words successfully solved:	115
+Percentage of words successfully solved:	56.10%
+Total time taken:		34.9883s
+Average tries per word:	5.385
+Average time per word:	0.1707s
+
+Words starting with 'z':
+Number of words:		122
+Number of words successfully solved:	61
+Percentage of words successfully solved:	50.00%
+Total time taken:		21.0987s
+Average tries per word:	5.549
+Average time per word:	0.1729s
+
