@@ -38,3 +38,6 @@ def main():
 
 if __name__ == '__main__':
 	main()
+
+# A link to find the previous solutions to Wordle.
+# https://wordfinder.yourdictionary.com/wordle/answers/
