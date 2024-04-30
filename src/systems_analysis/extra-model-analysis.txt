@@ -1,0 +1,123 @@
+VAPID
+
+Specific word to guess: vapid
+Starting guess: adieu		Valid guesses left: 14855
+Try #1: Guess='adieu', Valid guesses left: 96
+Try #2: Guess='cadis', Valid guesses left: 13
+Try #3: Guess='davit', Valid guesses left: 2
+Try #4: Guess='valid', Valid guesses left: 1
+Try #5: Guess='vapid', Valid guesses left: 0
+			Word solved!
+			Word 'vapid' solved in 5 tries
+
+Specific word to guess: vapid
+Starting guess: slate		Valid guesses left: 14855
+Try #1: Guess='slate', Valid guesses left: 1101
+Try #2: Guess='abjad', Valid guesses left: 31
+Try #3: Guess='cycad', Valid guesses left: 15
+Try #4: Guess='faurd', Valid guesses left: 6
+Try #5: Guess='madid', Valid guesses left: 3
+Try #6: Guess='vapid', Valid guesses left: 2
+			Word solved!
+			Word 'vapid' solved in 6 tries
+
+
+PRUNE
+
+Specific word to guess: prune
+Starting guess: adieu		Valid guesses left: 14855
+Try #1: Guess='adieu', Valid guesses left: 266
+Try #2: Guess='begun', Valid guesses left: 17
+Try #3: Guess='noule', Valid guesses left: 2
+Try #4: Guess='enure', Valid guesses left: 1
+Try #5: Guess='prune', Valid guesses left: 0
+			Word solved!
+			Word 'prune' solved in 5 tries
+
+
+Specific word to guess: prune
+Starting guess: slate		Valid guesses left: 14855
+Try #1: Guess='slate', Valid guesses left: 506
+Try #2: Guess='bedye', Valid guesses left: 255
+Try #3: Guess='chine', Valid guesses left: 9
+Try #4: Guess='krone', Valid guesses left: 1
+Try #5: Guess='prune', Valid guesses left: 0
+			Word solved!
+			Word 'prune' solved in 5 tries
+
+
+
+INTRO
+
+Specific word to guess: intro
+Starting guess: adieu		Valid guesses left: 14855
+Try #1: Guess='adieu', Valid guesses left: 832
+Try #2: Guess='biffs', Valid guesses left: 126
+Try #3: Guess='colin', Valid guesses left: 4
+Try #4: Guess='irony', Valid guesses left: 1
+Try #5: Guess='intro', Valid guesses left: 0
+			Word solved!
+			Word 'intro' solved in 5 tries
+
+Specific word to guess: intro
+Starting guess: slate		Valid guesses left: 14855
+Try #1: Guess='slate', Valid guesses left: 302
+Try #2: Guess='bight', Valid guesses left: 38
+Try #3: Guess='octic', Valid guesses left: 1
+Try #4: Guess='intro', Valid guesses left: 0
+			Word solved!
+			Word 'intro' solved in 4 tries
+
+GLEAM
+
+
+
+Specific word to guess: gleam
+Starting guess: adieu		Valid guesses left: 14855
+Try #1: Guess='adieu', Valid guesses left: 775
+Try #2: Guess='barbe', Valid guesses left: 292
+Try #3: Guess='beaky', Valid guesses left: 55
+Try #4: Guess='chela', Valid guesses left: 10
+Try #5: Guess='gleam', Valid guesses left: 9
+			Word solved!
+			Word 'gleam' solved in 5 tries
+
+
+Specific word to guess: gleam
+Starting guess: slate		Valid guesses left: 14855
+Try #1: Guess='slate', Valid guesses left: 30
+Try #2: Guess='aldea', Valid guesses left: 14
+Try #3: Guess='blear', Valid guesses left: 6
+Try #4: Guess='gleam', Valid guesses left: 5
+			Word solved!
+			Word 'gleam' solved in 4 tries
+
+
+
+
+CRAFT
+
+
+Specific word to guess: craft
+Starting guess: adieu		Valid guesses left: 14855
+Try #1: Guess='adieu', Valid guesses left: 2019
+Try #2: Guess='babas', Valid guesses left: 458
+Try #3: Guess='bhava', Valid guesses left: 127
+Try #4: Guess='clang', Valid guesses left: 7
+Try #5: Guess='craft', Valid guesses left: 6
+			Word solved!
+			Word 'craft' solved in 5 tries
+
+Specific word to guess: craft
+Starting guess: slate		Valid guesses left: 14855
+Try #1: Guess='slate', Valid guesses left: 76
+Try #2: Guess='abaht', Valid guesses left: 29
+Try #3: Guess='craft', Valid guesses left: 28
+			Word solved!
+			Word 'craft' solved in 3 tries
+
+
+
+
+
+
