@@ -1,0 +1,10 @@
+Specific word to guess: craft
+Starting guess: adieu		Valid guesses left: 14855
+Try #1: Guess='adieu', Valid guesses left: 2019
+Try #2: Guess='babas', Valid guesses left: 458
+Try #3: Guess='bhava', Valid guesses left: 127
+Try #4: Guess='clang', Valid guesses left: 7
+Try #5: Guess='crack', Valid guesses left: 4
+Try #6: Guess='cramp', Valid guesses left: 2
+			Word solved!
+			Word 'craft' solved in 6 tries
