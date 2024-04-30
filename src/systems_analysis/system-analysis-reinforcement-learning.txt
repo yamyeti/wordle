@@ -1,0 +1,51 @@
+Reinforcement Learning Model
+
+Evaluation of each starting letter:
+
+Words starting with 'a':
+Number of words:				868
+Number of words successfully solved:		790
+Percentage of words successfully solved:	91.01%
+Total time taken:				1339.7717s
+Average tries per word:				4.378
+Average time per word:				1.5435s
+
+Words starting with 'b':
+Number of words:				1003
+Number of words successfully solved:		847
+Percentage of words successfully solved:	84.45%
+Total time taken:				1446.6659s
+Average tries per word:				4.485
+Average time per word:				1.4423s
+
+Words starting with 'c':
+Number of words:				970
+Number of words successfully solved:		834
+Percentage of words successfully solved:	85.98%
+Total time taken:				1432.0773s
+Average tries per word:				4.725
+Average time per word:				1.4764s
+
+Words starting with 'd':
+Number of words:				735
+Number of words successfully solved:		632
+Percentage of words successfully solved:	85.99%
+Total time taken:				973.5746s
+Average tries per word:				4.774
+Average time per word:				1.3246s
+
+Words starting with 'e':
+Number of words:				330
+Number of words successfully solved:		306
+Percentage of words successfully solved:	92.73%
+Total time taken:				441.2020s
+Average tries per word:				4.482
+Average time per word:				1.3370s
+
+Words starting with 'f':
+Number of words:				646
+Number of words successfully solved:		557
+Percentage of words successfully solved:	86.22%
+Total time taken:				877.1794s
+Average tries per word:				4.807
+Average time per word:				1.3579s

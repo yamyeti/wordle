@@ -1,5 +1,7 @@
 WOTD: April 28, 2024
 Setting word of the day: PRUNE
+Number of words {P}:	 1130
+
 
 Naive Implementation:
 {Adieu}			Valid guesses left: 417
